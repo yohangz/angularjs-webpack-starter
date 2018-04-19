@@ -1,7 +1,7 @@
 {
   "name": "angularjs-webpack-starter",
   "version": "0.0.1",
-  "description": "An example application demonstrating modern AngularJS development using Bable & WebPack.",
+  "description": "An example application demonstrating modern AngularJS development using Babel & WebPack.",
   "main": "index.js",
   "scripts": {
     "build": "npm run build:prd",
@@ -25,11 +25,11 @@
   },
   "keywords": [
     "AngularJS",
-    "Bable",
+    "Babel",
     "WebPack",
     "NPM"
   ],
-  "author": "Frederik Prijck <frederik.prijck@gmail.com>",
+  "author": "Yohan Gomez <yohan.gz@hotmail.com>",
   "license": "MIT",
   "devDependencies": {
     "angular-mocks": "^1.6.9",
@@ -71,5 +71,7 @@
     "@uirouter/angularjs": "1.0.15",
     "angular": "^1.6.9",
     "bootstrap": "^3.3.7"
-  }
+  },
+  "repository": "git@github.com:yohangz/angularjs-webpack-starter.git",
+  "private": true
 }
