@@ -1,9 +1,24 @@
 module.exports = function (config) {
 
-  config.set({
-    singleRun: false,
+  var browsers = ['PhantomJS'];
 
-    browsers: ['PhantomJS', 'Chrome'],
+  if (process.env.TRAVIS) {
+    browsers.push('Chrome_Travis');
+  } else {
+    browsers.push('Chrome');
+  }
+
+  config.set({
+    singleRun: true,
+
+    browsers: browsers,
+
+    customLaunchers: {
+      Chrome_Travis: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
 
     frameworks: [
       'jasmine'

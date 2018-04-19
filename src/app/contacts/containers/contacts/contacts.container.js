@@ -1,4 +1,4 @@
-import { ContactsService } from './../../services/contacts.service';
+import { ContactsService } from '../../services/contacts.service';
 
 /**
  * Import the Component styles
@@ -6,24 +6,21 @@ import { ContactsService } from './../../services/contacts.service';
 import './contacts.container.scss';
 
 class ContactsController {
-  contacts: { id: number, firstName: string, lastName: string }[];
-
-  constructor(
-      private contactsService: ContactsService
-  ) {
+  constructor(contactsService) {
       'ngInject';
-    }
+      this.contactsService = contactsService
+  }
 
   $onInit() {
     this.fetchData();
   }
 
-  remove(id: number) {
+  remove(id) {
     this.contactsService.remove(id);
     this.fetchData();
   }
 
-  private fetchData() {
+  fetchData() {
     this.contactsService.getAll()
       .then(contacts => {
         this.contacts = contacts;
@@ -31,10 +28,10 @@ class ContactsController {
   }
 }
 
-export class ContactsContainer implements angular.IComponentOptions {
-  static selector = 'contacts';
-  static controller = ContactsController;
-  static template = `
+export const ContactsContainer = {
+  selector: 'contacts',
+  controller: ContactsController,
+  template: `
   <div class="row">
     <div class="col-md-12">
       <h1>Contacts</h1>
@@ -42,5 +39,5 @@ export class ContactsContainer implements angular.IComponentOptions {
       <a class="btn btn-primary btn-block" ui-sref="add-contact">Add</a>
     </div>
   </div>
-  `;
-}
+  `
+};

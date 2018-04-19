@@ -20,13 +20,13 @@ describe('AddContact container', () => {
         angular.mock.module('app');
     });
 
-    it('should exist', angular.mock.inject(($componentController: any) => {
+    it('should exist', angular.mock.inject(($componentController) => {
         const component = $componentController(AddContactContainer.selector, {}, {});
 
         expect(component).toBeDefined();
     }));
 
-    it('should call `contactsService.add` when adding', angular.mock.inject(($componentController: any, contactsService: any) => {
+    it('should call `contactsService.add` when adding', angular.mock.inject(($componentController, contactsService) => {
         const component = $componentController(AddContactContainer.selector, {}, {});
         component.add({
             name: 'John'
@@ -35,7 +35,7 @@ describe('AddContact container', () => {
         expect(contactsService.add).toHaveBeenCalledWith({ name: 'John' });
     }));
 
-    it('should call `$state.go` when adding', angular.mock.inject(($componentController: any, contactsService: any) => {
+    it('should call `$state.go` when adding', angular.mock.inject(($componentController, contactsService) => {
         const component = $componentController(AddContactContainer.selector, {}, {});
         component.add({
             name: 'John'

@@ -1,87 +1,67 @@
 const path = require('path');
-const ROOT = path.resolve( __dirname, 'src' );
+const ROOT = path.resolve(__dirname, 'src');
 
 /**
  * Webpack Plugins
  */
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-    context: ROOT,
+  context: ROOT,
+  module: {
+    rules: [
+      {
+        test: /\.js/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'eslint-loader',
+          options: {
+            emitWarning: true
+          }
+        },
+        enforce: 'pre'
+      },
+      {
+        test: /\.js$/,
+        exclude: [/node_modules/],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015']
+          }
+        }
+      },
+      {
+        test: /\.js$/,
+        exclude: [/node_modules/],
+        use: 'ng-annotate-loader',
+        enforce: 'post'
+      },
+      {
+        test: /\.(jpg|png|gif)$/,
+        use: 'file-loader'
+      },
 
-    resolve: {
-        extensions: ['.ts', '.js']
-    },
+      {
+        test: /\.(svg|woff|woff2|eot|ttf)$/,
+        use: 'file-loader?outputPath=fonts/'
+      },
 
-    module: {
-        rules: [
-            {
-                test: /\.ts$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'tslint-loader',
-                    options: {
-                        emitErrors: true
-                    }
-                },
-                enforce: 'pre'
-            },
+      {
+        test: /.html$/,
+        exclude: /index.html$/,
+        use: 'html-loader'
+      }
+    ]
+  },
 
-            {
-                test: /\.ts$/,
-                exclude: [ /node_modules/ ],
-                use: [
-                    'ng-annotate-loader',
-                    'awesome-typescript-loader'
-                ]
-            },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'AngularJS - Webpack',
+      template: 'index.html',
+      inject: true
+    })
+  ],
 
-            {
-                test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', 'sass-loader'],
-                    publicPath: '../'
-                }),
-            },
-
-            {
-                test: /\.(jpg|png|gif)$/,
-                use: 'file-loader'
-            },
-
-            {
-                test: /\.(svg|woff|woff2|eot|ttf)$/,
-                use: 'file-loader?outputPath=fonts/'
-            },
-
-            {
-                test: /.html$/,
-                exclude: /index.html$/,
-                use: 'html-loader'
-            }
-        ]
-    },
-
-    plugins: [
-        new HtmlWebpackPlugin({
-            title: 'AngularJS - Webpack',
-            template: 'index.html',
-            inject: true
-        }),
-        new LoaderOptionsPlugin({
-            debug: true,
-            options: {
-                tslint: {
-                    configuration: require('./tslint.json'),
-                    typeCheck: true
-                }
-            }
-        }),
-        new ExtractTextPlugin('css/style.css')
-    ],
-
-    entry: './index.ts'
+  entry: './index.js'
 };

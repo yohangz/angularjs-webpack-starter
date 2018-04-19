@@ -1,7 +1,7 @@
 import { AddContactContainer } from './containers/add-contact/add-contact.container';
 import { ContactsContainer } from './containers/contacts/contacts.container';
 
-export const routing = ($stateProvider: angular.ui.IStateProvider) => {
+export const routing = ($stateProvider) => {
   'ngInject';
   $stateProvider
 

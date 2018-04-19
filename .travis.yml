@@ -28,8 +28,8 @@ before_script:
   - npm prune
 
 script:
-  - npm run build:prd
-  - npm run test
+  - npm run test:ci
+  - npm run build
 
 after_success: 
   - npm run test:coveralls

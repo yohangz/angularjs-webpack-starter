@@ -20,16 +20,16 @@ describe('Contacts container', () => {
         angular.mock.module('app');
     });
 
-    it('should exist', angular.mock.inject(($componentController: any) => {
+    it('should exist', angular.mock.inject(($componentController) => {
         const component = $componentController(ContactsContainer.selector, {}, {});
 
         expect(component).toBeDefined();
     }));
 
     it('should call `contactsService.remove` when removing', angular.mock.inject((
-        $componentController: any,
-        contactsService: any,
-        $q: angular.IQService) => {
+        $componentController,
+        contactsService,
+        $q) => {
         const component = $componentController(ContactsContainer.selector, {}, {});
         _contactsService.getAll.and.returnValue($q.resolve());
         component.remove(1);
@@ -38,9 +38,9 @@ describe('Contacts container', () => {
     }));
 
     it('should call `contactsService.getAll` on init', angular.mock.inject((
-        $componentController: any,
-        contactsService: any,
-        $q: angular.IQService) => {
+        $componentController,
+        contactsService,
+        $q) => {
         const component = $componentController(ContactsContainer.selector, {}, {});
         _contactsService.getAll.and.returnValue($q.resolve());
         component.$onInit();

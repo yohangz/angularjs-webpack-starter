@@ -1,5 +1,4 @@
-var testsContext = require.context("./app", true, /.spec.ts/);
-testsContext.keys().forEach(testsContext);
+import './index';
 
-var testsContext = require.context("./app", true, /.ts/);
+var testsContext = require.context("./app", true, /.spec.js/);
 testsContext.keys().forEach(testsContext);

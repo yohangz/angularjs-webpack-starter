@@ -1,82 +1,56 @@
 const path = require('path');
-const webpack = require('webpack');
-const ROOT = path.resolve( __dirname, 'src' );
-const DESTINATION = path.resolve( __dirname, 'dist' );
+const ROOT = path.resolve(__dirname, 'src');
 
 /**
  * Webpack Plugins
  */
-const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
-
 module.exports = {
-    context: ROOT,
+  context: ROOT,
+  mode: 'development',
+  module: {
+    rules: [
+      {
+        test: /\.js/,
+        exclude: /node_modules/,
+        use: 'eslint-loader',
+        enforce: 'pre'
+      },
+      {
+        test: /\.js$/,
+        exclude: [/node_modules/],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015']
+          }
+        }
+      },
+      {
+        test: /\.js/,
+        exclude: [
+          /node_modules/,
+          /\.spec\.js/
+        ],
+        use: 'istanbul-instrumenter-loader',
+        enforce: 'post'
+      },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      },
 
-    resolve: {
-        extensions: ['.ts', '.js']
-    },
+      {
+        test: /\.(jpg|png|gif|svg|woff|woff2|eot|ttf)$/,
+        use: 'file-loader'
+      },
 
-    mode: 'development',
-
-    module: {
-        rules: [
-            {
-                test: /\.ts$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'tslint-loader',
-                    options: {
-                        emitErrors: true
-                    }
-                },
-                enforce: 'pre'
-            },
-            
-            {
-                test: /\.ts$/,
-                exclude: [ /node_modules/ ],
-                use: 'awesome-typescript-loader'
-            },
-            
-            {
-                test: /\.ts$/,
-                exclude: [ 
-                    /node_modules/,
-                    /\.spec\.ts$/
-                ],
-                use: 'istanbul-instrumenter-loader',
-                enforce: 'post'
-            },
-
-            {
-                test: /\.scss$/,
-                use: ['style-loader', 'css-loader', 'sass-loader']
-            },
-
-            {
-                test: /\.(jpg|png|gif|svg|woff|woff2|eot|ttf)$/,
-                use: 'file-loader'
-            },
-
-            {
-                test: /.html$/,
-                use: 'html-loader'
-            }
-        ]
-    },
-
-    plugins: [
-        new LoaderOptionsPlugin({
-            debug: true,
-            options: {
-                tslint: {
-                    configuration: require('./tslint.json'),
-                    typeCheck: true
-                }
-            }
-        }),
-
-    ],
-
-    devtool: 'inline-source-map',
-    devServer: {}
+      {
+        test: /.html$/,
+        use: 'html-loader'
+      }
+    ]
+  },
+  plugins: [],
+  devtool: 'inline-source-map',
+  devServer: {}
 };

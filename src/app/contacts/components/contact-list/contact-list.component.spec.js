@@ -1,4 +1,3 @@
-import * as angular from 'angular';
 import 'angular-mocks';
 import { ContactList } from './contact-list.component';
 
@@ -10,13 +9,13 @@ describe('ContactList component', () => {
     angular.mock.module('app');
   });
 
-  it('should exist', angular.mock.inject(($componentController: any) => {
+  it('should exist', angular.mock.inject(($componentController) => {
     const component = $componentController(ContactList.selector, {}, {});
 
     expect(component).toBeDefined();
   }));
 
-  it('should pass `contact` to `contactRemoved` binding when removing', angular.mock.inject(($componentController: any) => {
+  it('should pass `contact` to `contactRemoved` binding when removing', angular.mock.inject(($componentController) => {
     const bindings = {
       contactRemoved: jasmine.createSpy('contactRemoved')
     };

@@ -1,6 +1,8 @@
 .npmrc
 .tmp
 .vscode
-build
+.idea
+package-lock.json
+coverage
 node_modules
 public

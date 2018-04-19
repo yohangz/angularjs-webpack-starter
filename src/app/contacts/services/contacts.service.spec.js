@@ -10,11 +10,11 @@ describe('Contacts container', () => {
     angular.mock.module('app');
   });
 
-  it('should exist', angular.mock.inject((contactsService: ContactsService) => {
+  it('should exist', angular.mock.inject((contactsService) => {
     expect(contactsService).toBeDefined();
   }));
 
-  it('should generate an id when adding a new contact', angular.mock.inject((contactsService: ContactsService) => {
+  it('should generate an id when adding a new contact', angular.mock.inject((contactsService) => {
     const contact = {
       firstName: 'John',
       lastName: 'Doe'
@@ -25,7 +25,7 @@ describe('Contacts container', () => {
     expect(contactsService.contacts[1].id).toBe(2);
   }));
 
-  it('should remove a contact by id', angular.mock.inject((contactsService: ContactsService) => {
+  it('should remove a contact by id', angular.mock.inject((contactsService) => {
     contactsService.remove(1);
     expect(contactsService.contacts.length).toBe(0);
   }));
